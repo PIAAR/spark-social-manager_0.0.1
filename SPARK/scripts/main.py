@@ -1,4 +1,5 @@
+import curses
 from scripts.menu import main_menu
 
 if __name__ == "__main__":
-    main_menu()
+    curses.wrapper(main_menu)
