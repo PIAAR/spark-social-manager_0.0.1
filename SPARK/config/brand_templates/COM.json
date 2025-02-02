@@ -1,0 +1,54 @@
+{
+    "brand_name": "Conversations of Mastery",
+    "description": "A deep-dive discussion series analyzing business, mindset, and personal development through a mastery lens.",
+    "social_channels": {
+        "spotify": {
+            "handle": "ConversationsOfMastery",
+            "post_format": "Podcast episodes with deep discussions and guest interviews."
+        },
+        "tiktok": {
+            "handle": "@MasteryTalks",
+            "post_format": "Short-form videos with key mastery takeaways.",
+            "engagement": "Duet-friendly content for audience participation."
+        },
+        "youtube": {
+            "channel_name": "Conversations of Mastery",
+            "content_format": "Long-form deep dive discussions & short highlight clips.",
+            "branding": {
+                "intro_outro_style": "Branded intro with logo animation, closing CTA with subscription ask.",
+                "thumbnail_style": "Bold, clean text with high-contrast visuals."
+            }
+        },
+        "facebook": {
+            "handle": "ConversationsOfMastery",
+            "post_format": "Long-form posts with discussion-driven content.",
+            "community_engagement": "Encourage comments and discussions."
+        }
+    },
+    "branding": {
+        "primary_colors": [
+            "#1A1A1A",
+            "#FFD700"
+        ],
+        "fonts": {
+            "heading": "Montserrat Bold",
+            "body": "Lato Regular"
+        },
+        "logo": "path/to/logo.png",
+        "tone_of_voice": "Authoritative yet engaging, educational yet accessible."
+    },
+    "post_structure": {
+        "hook": "Start with a powerful question or statement.",
+        "body": "Provide deep insight, backed by research or experience.",
+        "call_to_action": "Encourage engagement: comments, shares, or reflection."
+    },
+    "posting_schedule": {
+        "spotify": "1 podcast episode per week",
+        "tiktok": "5-7 short videos per week",
+        "youtube": "1 long-form video per week + 2-3 shorts",
+        "facebook": "3-4 posts per week"
+    },
+    "brand_voice": {
+        "show_prompt": "Welcome to Conversations of Mastery with Coach Rahm. It is I, Coach Rahm, here to give you a dose of wisdom and empowerment. Together, we will find accountability, reliability, responsibility, and respect for ourselves. By standing on principles, we never lose balance. So let's get ready to begin to make a stand!"
+    }
+}
