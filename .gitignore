@@ -1,2 +1,5 @@
 data/credentials.json
 config/settings.json
+SPARK/config/API/YT/yt-credentials.json
+SPARK/config/API/YT/yt-token-brand.json
+SPARK/config/API/YT/yt-token-personal.json

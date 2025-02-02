@@ -1,0 +1,160 @@
+"Generic Prompt for Each Show
+
+Instructions for AI:
+Write a 2,500 to 5,000-word VLOG script for a professional audience in Martech, software engineering, and AI. Use Rahm and Allen's personas to guide the narrative with humor, insight, and practical solutions. Keep the tone conversational, solution-focused, and educational. The script should be structured in segments that can be clipped into short-form content for social media. Ensure the script aligns with the Virtual Legacy of Greatness brand template.
+
+Key Input: "[Title]"
+
+"VLOG Script Prompt Structure
+
+1. Role Call (Introduction)
+
+Start the VLOG with Rahm’s role call to establish tone and purpose:
+""Welcome to The Virtual Legacy of Greatness, where tech mastery meets real-world solutions. It’s your guide, Rahm, here to help you decode the Martech landscape, conquer the AEP tech stack, and dive into thought-provoking conversations about AI and innovation.
+
+This is the space where challenges turn into opportunities, and every problem is just waiting for the right solution. Whether it’s a step-by-step tutorial, a strategy for success, or a fresh perspective on the future of technology, you’re in the right place. Let’s build, solve, and innovate together!""
+
+Introduce today’s episode with a hook:
+
+2. Use a question or observation to grab attention:
+
+""Have you ever wondered why [Insert Challenge/Problem Related to Title] seems so overwhelming?""
+
+3. Share a personal anecdote or metaphor to set the stage:
+
+""Think of "[Insert Challenge/Problem Related to Title]" like a blueprint. Without the right tools and measurements, the structure falls apart.""
+
+4. Thesis Statement
+
+Clearly state the purpose of the episode and its relevance to the audience:
+""In today’s episode, we’ll explore "[Title]"
+
+"" Whether you’re looking to [Insert Problem Audience Faces] or [Insert Desired Outcome], this guide will provide practical steps and fresh perspectives to help you master it.""
+
+5. Subtopics Segment
+
+Break the topic into 2-4 subtopics, each with the following structure:
+
+Subtopic Structure:
+
+1. Introduce the Subtopic:
+
+""Let’s start with [Insert Subtopic]. It’s the foundation for understanding "[Title]"""
+
+2. Allen’s Commentary:
+
+Add humor or a challenge:
+
+""Foundation? Sounds like something humans mess up all the time. Care to explain, Rahm?""
+
+3. Rahm’s Response:
+
+""Good point, Allen. That’s why we’re breaking it down step by step.""
+
+4. Talking Points:
+
+Point 1: Explain a key insight related to the subtopic.
+
+Point 2: Provide a real-world or hypothetical example for clarity.
+
+Point 3: Share actionable advice or tips.
+
+Repeat this structure for each subtopic.
+
+5. Solutions Segment
+
+Present practical solutions for the challenges discussed in the subtopics. Structure the solutions as steps, tips, or an acronym for easy recall.
+
+Solutions Structure:
+
+1. Introduce the solutions:
+
+""Now that we understand the challenges, here’s how to tackle them head-on.""
+
+2. Provide 2-4 clear, actionable solutions:
+
+Solution 1: ""Step 1 is to [Insert Solution]. This ensures that [Explain Why It’s Effective].""
+
+Solution 2: ""Step 2 is to [Insert Solution]. It helps you [Insert Desired Outcome].""
+
+Solution 3: [Insert Additional Solution].
+
+3. Include Allen’s commentary to lighten the mood:
+
+""Simple steps, Rahm? Humans struggle with directions on a GPS. Are you sure this will work?""
+
+4. Rahm’s response:
+
+""Fair point, Allen. But clarity is key, and these steps will get you there.""
+
+5. Cliché Segment (Optional)
+
+Use a relatable cliché to reinforce the topic and engage the audience.
+
+Cliché Structure:
+
+1. Introduce the cliché:
+
+""You’ve heard it before: [Insert Cliché]. But what does it really mean for" [Title]?""
+
+2. Break down its relevance into 2-3 supporting points.
+
+3. Include Allen’s humorous input:
+
+""Clichés, Rahm? Aren’t those just for humans to feel smart without trying?""
+
+4. Rahm’s response:
+
+""Sometimes, Allen, simplicity is where wisdom lies. Let’s unpack it...""
+
+6. History Segment (Optional)
+
+Draw on historical events or figures to provide depth and context to the topic.
+
+History Structure:
+
+1. Allen introduces the historical reference:
+
+""Did you know in [Insert Year], [Insert Historical Fact]? Does that have anything to do with [Insert Title/Topic]?""
+
+2. Rahm explains the connection:
+
+""Absolutely, Allen. It’s a perfect example of how [Draw Parallels to the Topic].""
+
+7. Conclusion Segment
+
+Wrap up the episode with key takeaways and an empowering message.
+
+Conclusion Structure:
+
+1. Recap the episode:
+
+""Today, we covered [Insert Key Points]. Remember, [Insert Encouraging Statement].""
+
+2. Allen’s final comment:
+
+Add humor or a thought-provoking question:
+
+""And if all else fails, there’s always Google. Right, Rahm?""
+
+3. Rahm’s closing statement:
+
+""The solutions are here; the action is yours to take. Let’s keep building, solving, and innovating together.""
+
+8. Call to Action
+
+End with a motivational outro and encourage audience engagement.
+
+Call to Action Structure:
+
+1. Encourage interaction:
+
+""Don’t forget to subscribe, leave a comment, and share this with someone who needs it.""
+
+2. Promote support:
+
+""Support the channel through PayPal or check out the links in the description for more resources.""
+
+3. Allen’s parting quip:
+
+""And if you subscribe, I promise not to send 10 automated reminders. Or maybe I will—it’s good for engagement!"""
