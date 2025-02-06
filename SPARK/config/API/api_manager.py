@@ -1,6 +1,7 @@
 import os
 import json
-from scripts.log_manager import Logger
+import logging
+from scripts.log_manager import logger, LogManager
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from spotipy import Spotify
@@ -9,16 +10,11 @@ import tweepy
 import requests
 
 # Define file paths
-CREDENTIALS_FILE = os.path.join(os.path.dirname(__file__), "../data/credentials.json")
-LOG_FILE = os.path.join(os.path.dirname(__file__), "../data/logs.json")
+CREDENTIALS_FILE = os.path.join(os.path.dirname(__file__), "../../data/credentials.json")
+LOG_FILE = os.path.join(os.path.dirname(__file__), "../../data/logs/logs.json")
 
-# Set up logging
-logger=Logger()
-logger.basicConfig(
-    filename=LOG_FILE,
-    level=logger.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s",
-)
+# Ensure log directory exists
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
 
 class APIManager:
     """Centralized API Manager for handling authentication and connections."""
@@ -32,7 +28,7 @@ class APIManager:
         if os.path.exists(CREDENTIALS_FILE):
             with open(CREDENTIALS_FILE, "r") as file:
                 return json.load(file)
-        logger.error("Credentials file not found.")
+        logger.error("❌ Credentials file not found.")
         return {}
 
     def get_youtube_client(self, token_file):
@@ -46,16 +42,25 @@ class APIManager:
                         creds_data,
                         ["https://www.googleapis.com/auth/youtube.force-ssl"],
                     )
-            return build("youtube", "v3", credentials=creds)
+            if creds:
+                logger.info("✅ YouTube API authentication successful.")
+                return build("youtube", "v3", credentials=creds)
+            else:
+                logger.error("❌ YouTube API authentication failed.")
+                return None
         except Exception as e:
-            logger.error(f"Failed to authenticate YouTube: {e}")
+            logger.error(f"❌ Failed to authenticate YouTube: {e}")
             return None
 
     def get_spotify_client(self):
         """Authenticate and return a Spotify API client."""
         try:
             creds = self.credentials.get("spotify", {})
-            return Spotify(
+            if not creds:
+                logger.error("❌ Spotify credentials missing.")
+                return None
+
+            spotify_client = Spotify(
                 auth_manager=SpotifyOAuth(
                     client_id=creds["client_id"],
                     client_secret=creds["client_secret"],
@@ -63,68 +68,95 @@ class APIManager:
                     scope="user-library-read",
                 )
             )
+            logger.info("✅ Spotify API authentication successful.")
+            return spotify_client
         except Exception as e:
-            logger.error(f"Failed to authenticate Spotify: {e}")
+            logger.error(f"❌ Failed to authenticate Spotify: {e}")
             return None
 
     def get_x_client(self):
         """Authenticate and return an X (Twitter) API client."""
         try:
             creds = self.credentials.get("x", {})
+            if not creds:
+                logger.error("❌ X (Twitter) credentials missing.")
+                return None
+
             auth = tweepy.OAuth1UserHandler(
                 creds["api_key"],
                 creds["api_secret"],
                 creds["access_token"],
                 creds["access_secret"],
             )
-            return tweepy.API(auth)
+            twitter_client = tweepy.API(auth)
+            logger.info("✅ X (Twitter) API authentication successful.")
+            return twitter_client
         except Exception as e:
-            logger.error(f"Failed to authenticate X (Twitter): {e}")
+            logger.error(f"❌ Failed to authenticate X (Twitter): {e}")
             return None
 
     def get_meta_client(self):
         """Authenticate and return a Meta API client (Facebook/Instagram)."""
         try:
             creds = self.credentials.get("meta", {})
-            return {"access_token": creds["access_token"], "page_id": creds["page_id"]}
+            if not creds:
+                logger.error("❌ Meta (Facebook/Instagram) credentials missing.")
+                return None
+
+            meta_client = {
+                "access_token": creds["access_token"],
+                "page_id": creds["page_id"],
+            }
+            logger.info("✅ Meta API authentication successful.")
+            return meta_client
         except Exception as e:
-            logger.error(f"Failed to authenticate Meta (Facebook/Instagram): {e}")
+            logger.error(f"❌ Failed to authenticate Meta (Facebook/Instagram): {e}")
             return None
 
     def get_tiktok_client(self):
         """Authenticate and return a TikTok API client."""
         try:
             creds = self.credentials.get("tiktok", {})
-            return {
+            if not creds:
+                logger.error("❌ TikTok credentials missing.")
+                return None
+
+            tiktok_client = {
                 "access_token": creds["access_token"],
                 "client_key": creds["client_key"],
             }
+            logger.info("✅ TikTok API authentication successful.")
+            return tiktok_client
         except Exception as e:
-            logger.error(f"Failed to authenticate TikTok: {e}")
+            logger.error(f"❌ Failed to authenticate TikTok: {e}")
             return None
+
 
 # Example Usage:
 if __name__ == "__main__":
     manager = APIManager()
 
     print("\n🔹 Authenticating YouTube...")
-    if youtube := manager.get_youtube_client(
-        "../config/API/YT/yt-token-brand.json"
-    ):
+    youtube_client = manager.get_youtube_client("../config/API/YT/yt-token-brand.json")
+    if youtube_client:
         print("✅ YouTube API Ready!")
 
     print("\n🔹 Authenticating Spotify...")
-    if spotify := manager.get_spotify_client():
+    spotify_client = manager.get_spotify_client()
+    if spotify_client:
         print("✅ Spotify API Ready!")
 
     print("\n🔹 Authenticating X (Twitter)...")
-    if x := manager.get_x_client():
+    x_client = manager.get_x_client()
+    if x_client:
         print("✅ X (Twitter) API Ready!")
 
     print("\n🔹 Authenticating Meta (Facebook/Instagram)...")
-    if meta := manager.get_meta_client():
+    meta_client = manager.get_meta_client()
+    if meta_client:
         print("✅ Meta API Ready!")
 
     print("\n🔹 Authenticating TikTok...")
-    if tiktok := manager.get_tiktok_client():
+    tiktok_client = manager.get_tiktok_client()
+    if tiktok_client:
         print("✅ TikTok API Ready!")

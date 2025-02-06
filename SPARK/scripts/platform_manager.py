@@ -5,7 +5,7 @@ import subprocess
 import time
 
 from config.API.api_manager import APIManager
-from SPARK.scripts.log_manager import Logger
+from scripts.log_manager import LogManager
 
 # Define file paths
 CREDENTIALS_FILE = "data/credentials.json"
@@ -19,7 +19,7 @@ class PlatformManager:
     """Handles Platform Management Operations."""
 
     def __init__(self):
-        self.logger = Logger()
+        self.logger = LogManager()
         self.api_manager = APIManager()
 
     def menu(self, stdscr):

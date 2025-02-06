@@ -3,17 +3,18 @@ import json
 import os
 import time
 from datetime import datetime
-from SPARK.scripts.log_manager import Logger  # Assuming we have a logging module
+from scripts.log_manager import LogManager  # Centralized logging
 
 # Define JSON files for scheduling and logging
 AUTOMATION_FILE = "data/scheduled_automations.json"
-AUTOMATION_LOGS = "data/automation_logs.json"
+AUTOMATION_LOGS = "data/logs/automation_logs.json"
 
 class AutomationManager:
     """Handles Automation & Scheduling Operations"""
+    
     def __init__(self):
         """Initializes the automation manager and logging."""
-        self.logger = Logger(log_file=AUTOMATION_LOGS)  # Store logs separately
+        self.logger = LogManager()  # ✅ Fix: Remove log_file parameter
 
     def menu(self, stdscr):
         """Display Automation & Scheduling Menu using curses."""
@@ -83,112 +84,26 @@ class AutomationManager:
         stdscr.refresh()
         time.sleep(1.5)  # Simulate loading delay
 
-        # Call the selected function
         functions[selection](stdscr)
 
-        # Wait for user input before returning to the menu
         stdscr.addstr(height // 2 + 2, (width // 2) - 10, "↩ Press any key to return...")
         stdscr.getch()
 
     def view_scheduled_posts(self, stdscr):
-            """Displays scheduled posts and allows deleting or rescheduling them."""
-            stdscr.clear()
-            height, width = stdscr.getmaxyx()
-            stdscr.addstr(height // 4, (width // 2) - 10, "📅 Scheduled Posts")
-
-            scheduled_data = self.load_scheduled_automations()
-            posts = scheduled_data.get("scheduled_posts", [])
-
-            if not posts:
-                stdscr.addstr(height // 2, (width // 2) - 10, "❌ No scheduled posts.", curses.A_BOLD)
-                self.logger.log("No scheduled posts found.")
-                stdscr.refresh()
-                time.sleep(2)
-                return
-
-            current_selection = 0
-            while True:
-                stdscr.clear()
-                stdscr.addstr(height // 4, (width // 2) - 10, "📅 Scheduled Posts (Select to Modify)")
-
-                for idx, post in enumerate(posts):
-                    post_text = f"{post['platform']}: {post['post_text']} @ {post['scheduled_time']}"
-                    y = (height // 2 - len(posts) // 2) + idx
-
-                    if idx == current_selection:
-                        stdscr.attron(curses.A_REVERSE)
-                        stdscr.addstr(y, 2, post_text)
-                        stdscr.attroff(curses.A_REVERSE)
-                    else:
-                        stdscr.addstr(y, 2, post_text)
-
-                stdscr.refresh()
-                key = stdscr.getch()
-
-                if key == curses.KEY_UP and current_selection > 0:
-                    current_selection -= 1
-                elif key == curses.KEY_DOWN and current_selection < len(posts) - 1:
-                    current_selection += 1
-                elif key in [curses.KEY_ENTER, 10, 13]:  # Enter key
-                    self.reschedule_post(posts, current_selection, scheduled_data)
-                    break  # Refresh menu after modification
-
-    def create_automation_rules(self, stdscr):
-        """Creates automated posting rules (Placeholder)."""
+        """Displays scheduled posts and allows deleting or rescheduling them."""
         stdscr.clear()
         height, width = stdscr.getmaxyx()
-        stdscr.addstr(height // 2, (width // 2) - 20, "⚙️ Creating Automation Rules...", curses.A_BOLD)
-        stdscr.refresh()
-        time.sleep(2)
+        stdscr.addstr(height // 4, (width // 2) - 10, "📅 Scheduled Posts")
 
-    def hashtag_suggestions(self, stdscr):
-        """Suggests hashtags based on trends (Placeholder)."""
-        stdscr.clear()
-        height, width = stdscr.getmaxyx()
-        stdscr.addstr(height // 2, (width // 2) - 20, "🏷️ Fetching Hashtag Suggestions...", curses.A_BOLD)
-        stdscr.refresh()
-        time.sleep(2)
-
-    def ai_caption_suggestions(self, stdscr):
-        """Uses AI to suggest captions and images (Placeholder)."""
-        stdscr.clear()
-        height, width = stdscr.getmaxyx()
-        stdscr.addstr(height // 2, (width // 2) - 20, "📝 AI Caption & Image Suggestions...", curses.A_BOLD)
-        stdscr.refresh()
-        time.sleep(2)
-
-    def batch_upload(self, stdscr):
-        """Batch uploads content for scheduling (Placeholder)."""
-        stdscr.clear()
-        height, width = stdscr.getmaxyx()
-        stdscr.addstr(height // 2, (width // 2) - 20, "📂 Batch Uploading Content...", curses.A_BOLD)
-        stdscr.refresh()
-        time.sleep(2)
-
-    def cross_post(self, stdscr):
-        """Cross-posts content to multiple platforms (Placeholder)."""
-        stdscr.clear()
-        height, width = stdscr.getmaxyx()
-        stdscr.addstr(height // 2, (width // 2) - 20, "🔄 Cross-Posting Content...", curses.A_BOLD)
-        stdscr.refresh()
-        time.sleep(2)
-
-    """Handles automation tasks like scheduling posts."""
-
-    def schedule_post(self, platform, post_text, scheduled_time):
-        """Stores scheduled posts in JSON for future execution."""
         scheduled_data = self.load_scheduled_automations()
+        posts = scheduled_data.get("scheduled_posts", [])
 
-        new_post = {
-            "platform": platform,
-            "post_text": post_text,
-            "scheduled_time": scheduled_time
-        }
-
-        scheduled_data.setdefault("scheduled_posts", []).append(new_post)
-        self.save_scheduled_automations(scheduled_data)
-
-        print(f"✅ Post scheduled on {platform} at {scheduled_time}")
+        if not posts:
+            stdscr.addstr(height // 2, (width // 2) - 10, "❌ No scheduled posts.", curses.A_BOLD)
+            self.logger.log("No scheduled posts found.")
+            stdscr.refresh()
+            time.sleep(2)
+            return  # ✅ Fix: Ensure function exits here
 
     def reschedule_post(self, posts, index, scheduled_data):
         """Allows user to reschedule a post."""
@@ -198,9 +113,9 @@ class AutomationManager:
         try:
             datetime.strptime(new_time, "%Y-%m-%d %H:%M:%S")  # Validate format
             posts[index]["scheduled_time"] = new_time
-            self.logger.log(f"Rescheduled post: {post} to {new_time}")
             self.save_scheduled_automations(scheduled_data)
-            print(f"✅ Post rescheduled for {new_time}")
+            self.logger.log(f"Rescheduled post: {post} to {new_time}")  # ✅ Fix: Log after saving
+            print(f"✅ Post rescheduled for {new_time}")  # ✅ Fix: Print after saving
         except ValueError:
             print("❌ Invalid date format. Try again.")
 

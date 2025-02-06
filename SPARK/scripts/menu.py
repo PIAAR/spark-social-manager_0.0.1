@@ -1,10 +1,10 @@
 import curses
 import time
 from scripts.content import ContentManager
-from scripts.platform import PlatformManager
+from scripts.platform_manager import PlatformManager
 from scripts.analytics import AnalyticsManager
 from scripts.automation import AutomationManager
-from SPARK.scripts.log_manager import Logger
+from scripts.log_manager import LogManager
 
 # Define menu options
 menu_options = [
@@ -21,7 +21,7 @@ def main_menu(stdscr):
     curses.curs_set(0)  # Hide cursor
     stdscr.clear()      # Clear the screen
     stdscr.refresh()
-    logger = Logger()
+    logger = LogManager()
 
     # Get screen dimensions
     height, width = stdscr.getmaxyx()
@@ -65,7 +65,7 @@ def main_menu(stdscr):
                     break
                 break
             elif current_selection == 4:  # Logs Menu
-                Logger().menu(stdscr)
+                logger.menu(stdscr)  # Fix: Use LogManager
             else:
                 handle_selection(stdscr, current_selection)
 
@@ -89,8 +89,8 @@ def handle_selection(stdscr, selection):
     """Handles user selection from the main menu."""
     stdscr.clear()
     stdscr.refresh()
-    logger = Logger()
-    
+    logger = LogManager()  # Fix: Use LogManager
+
     functions = [
         ContentManager,
         PlatformManager,
@@ -113,6 +113,8 @@ def handle_selection(stdscr, selection):
     elif selection == 3:
         logger.log("Opened Automation & Scheduling")
         submenu(stdscr, "Automation & Scheduling", AutomationManager)
+        
+    return
 
 def submenu(stdscr, title, manager_class):
     """Displays a submenu for the selected section."""
@@ -131,11 +133,11 @@ def submenu(stdscr, title, manager_class):
 
     # Call the respective manager's menu method
     manager = manager_class()
-    manager.menu()
+    manager.menu(stdscr)  # Fix: Ensure `menu(stdscr)` is called correctly
+    
+    return
 
-    # Show return message
-    stdscr.addstr(height // 2, (width // 2) - 10, "↩ Press any key to return...")
-    stdscr.getch()
+
 
 if __name__ == "__main__":
     curses.wrapper(main_menu)

@@ -9,3 +9,7 @@ SPARK/data/logs.json
 *.pyc
 *.pyc
 *.pyc
+SPARK/data/logs.json
+SPARK/data/logs/logs.json
+SPARK/data/logs.json
+*.pyc
