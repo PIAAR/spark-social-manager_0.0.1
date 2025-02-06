@@ -34,7 +34,7 @@ The **Social Media Manager** is a command-line tool designed to streamline conte
 │   ├── platform.py     # Manages platform connections & credentials
 │   ├── analytics.py    # Handles engagement & performance analytics
 │   ├── automation.py   # Automates tasks like hashtag & AI caption generation
-│   ├── logging.py      # Logs system activities & errors
+│   ├── log_manager.py      # Logs system activities & errors
 │── /data               # Stores credentials & logs
 │   ├── credentials.json  # Stores API keys & tokens for platforms
 │   ├── logs.json       # Stores program logs

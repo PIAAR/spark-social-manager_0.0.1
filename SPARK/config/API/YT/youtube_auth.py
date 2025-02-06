@@ -27,7 +27,7 @@ def authenticate_youtube(token_file):
     flow = InstalledAppFlow.from_client_secrets_file(
         CREDENTIALS_FILE, SCOPES
     )
-    
+
     # Force user to select an account & brand account if applicable
     creds = flow.run_local_server(port=0, prompt="consent")
 
@@ -35,9 +35,7 @@ def authenticate_youtube(token_file):
     with open(token_file, "w") as token:
         token.write(creds.to_json())
 
-    # Create the YouTube API client
-    youtube = build("youtube", "v3", credentials=creds)
-    return youtube
+    return build("youtube", "v3", credentials=creds)
 
 def get_channels(youtube):
     """Retrieve all YouTube channels linked to the authenticated account."""

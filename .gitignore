@@ -3,3 +3,9 @@ config/settings.json
 SPARK/config/API/YT/yt-credentials.json
 SPARK/config/API/YT/yt-token-brand.json
 SPARK/config/API/YT/yt-token-personal.json
+.vscode/settings.json
+SPARK/data/logs.json
+*.pyc
+*.pyc
+*.pyc
+*.pyc

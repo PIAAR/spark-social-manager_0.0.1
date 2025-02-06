@@ -1,6 +1,6 @@
 import os
 import json
-import logging
+from scripts.log_manager import Logger
 from googleapiclient.discovery import build
 from google.oauth2.credentials import Credentials
 from spotipy import Spotify
@@ -13,12 +13,12 @@ CREDENTIALS_FILE = os.path.join(os.path.dirname(__file__), "../data/credentials.
 LOG_FILE = os.path.join(os.path.dirname(__file__), "../data/logs.json")
 
 # Set up logging
-logging.basicConfig(
+logger=Logger()
+logger.basicConfig(
     filename=LOG_FILE,
-    level=logging.INFO,
+    level=logger.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s",
 )
-
 
 class APIManager:
     """Centralized API Manager for handling authentication and connections."""
@@ -32,7 +32,7 @@ class APIManager:
         if os.path.exists(CREDENTIALS_FILE):
             with open(CREDENTIALS_FILE, "r") as file:
                 return json.load(file)
-        logging.error("Credentials file not found.")
+        logger.error("Credentials file not found.")
         return {}
 
     def get_youtube_client(self, token_file):
@@ -48,7 +48,7 @@ class APIManager:
                     )
             return build("youtube", "v3", credentials=creds)
         except Exception as e:
-            logging.error(f"Failed to authenticate YouTube: {e}")
+            logger.error(f"Failed to authenticate YouTube: {e}")
             return None
 
     def get_spotify_client(self):
@@ -64,7 +64,7 @@ class APIManager:
                 )
             )
         except Exception as e:
-            logging.error(f"Failed to authenticate Spotify: {e}")
+            logger.error(f"Failed to authenticate Spotify: {e}")
             return None
 
     def get_x_client(self):
@@ -79,7 +79,7 @@ class APIManager:
             )
             return tweepy.API(auth)
         except Exception as e:
-            logging.error(f"Failed to authenticate X (Twitter): {e}")
+            logger.error(f"Failed to authenticate X (Twitter): {e}")
             return None
 
     def get_meta_client(self):
@@ -88,7 +88,7 @@ class APIManager:
             creds = self.credentials.get("meta", {})
             return {"access_token": creds["access_token"], "page_id": creds["page_id"]}
         except Exception as e:
-            logging.error(f"Failed to authenticate Meta (Facebook/Instagram): {e}")
+            logger.error(f"Failed to authenticate Meta (Facebook/Instagram): {e}")
             return None
 
     def get_tiktok_client(self):
@@ -100,9 +100,8 @@ class APIManager:
                 "client_key": creds["client_key"],
             }
         except Exception as e:
-            logging.error(f"Failed to authenticate TikTok: {e}")
+            logger.error(f"Failed to authenticate TikTok: {e}")
             return None
-
 
 # Example Usage:
 if __name__ == "__main__":
