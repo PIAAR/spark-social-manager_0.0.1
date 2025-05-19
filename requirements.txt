@@ -19,7 +19,7 @@ redis==5.2.1
 requests==2.32.3
 requests-oauthlib==2.0.0
 rsa==4.9
-setuptools==75.1.0
+setuptools==78.1.1
 spotipy==2.25.0
 uritemplate==4.1.1
 urllib3==2.3.0
@@ -45,7 +45,7 @@ redis==5.2.1
 requests==2.32.3
 requests-oauthlib==2.0.0
 rsa==4.9
-setuptools==75.1.0
+setuptools==78.1.1
 spotipy==2.25.0
 tweepy==4.15.0
 uritemplate==4.1.1
